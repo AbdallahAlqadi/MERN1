@@ -22,7 +22,7 @@ mongoose.connect(process.env.MONGO_URI,{
 }).then(()=>console.log("Connected to MongoDB")).catch(err=>console.log(err))
 
 app.get('/test',(req,res)=>{
-    res.send('Hello from the Server');
+    res.send('Hello from the Server1....');
 })
 
 
