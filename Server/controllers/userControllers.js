@@ -1,5 +1,7 @@
-const User=require('..models/users')
-exports.getUsers=async(req,res)=>{
+const User=require('../models/users')
+
+//في مرحله get غالبا بس بستخدم res
+exports.getUsers=async (req,res)=>{
 try{
     const users=await User.find();
     res.json(users);

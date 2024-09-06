@@ -8,6 +8,6 @@ phone:{type:Number,required:true}
 
 })
 
-const User=mongoose.model('User',userSchema);
+const User=mongoose.model('users',userSchema);
 
 module.exports=User;
