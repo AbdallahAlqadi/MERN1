@@ -24,6 +24,7 @@ console.log(newUser)
 const dbUser=await User.create(newUser)
 
 res.status(200).json({message:`user Created successfully ${dbUser}`});
+
 }
 catch(error){
     res.status(400).json({message});
