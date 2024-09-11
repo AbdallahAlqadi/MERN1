@@ -30,3 +30,23 @@ catch(error){
     res.status(400).json({message});
 }
 }
+
+
+
+exports.getUsersName = async (req, res) => {
+    try {
+        const users = await User.find();
+        console.log('this is a function to get users names');
+        
+        const usernames = users.map(user => {
+            const obj = { username: user.username,id:user.id};
+            console.log(obj); 
+            return obj;
+        });
+        
+        res.json(usernames);
+    
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
