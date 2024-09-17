@@ -4,7 +4,8 @@ const express=require('express')
 const cors=require('cors');
 const routes=express.Router();
 require('dotenv').config();
-const {getUsers,creatUser, getUsersName}=require('../controllers/userControllers');
+
+const {getUsers,creatUser, getUsersName}=require('../controllers/userControllers'); //كل ما اعمل POST ,GET لازم اكتب اسم FUN هون
 
 
 routes.get('/users',getUsers);

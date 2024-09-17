@@ -5,16 +5,19 @@ const User=require('../models/users')
 exports.getUsers=async (req,res)=>{
 try{
     const users=await User.find();
-    console.log(users)
-    res.json(users);
 
+    console.log(users)  //معناها انه اظهرلي الناتج داخل TERMENAL وليس داخل INSPECT
+    res.json(users);
 }
+
 catch(error){
     res.status(500).json({error:error.message});
 }
 }
 
 
+
+ 
 //Post
 exports.creatUser=async (req,res)=>{
 const {username,phone}=req.body;
@@ -22,7 +25,8 @@ const {username,phone}=req.body;
 try{
     const newUser={username:username,phone:phone};
 console.log(newUser)
-const dbUser=await User.create(newUser)
+//مهمه لاجيب البيانات من post to get
+const dbUser=await User.create(newUser)//مشان اقدر اوصل للمعلومات يلي كتيتها ب postman
 
 res.status(200).json({message:`user Created successfully ${dbUser}`});
 
@@ -53,3 +57,9 @@ exports.getUsersName = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
+
+
+
+//ما بعمل EXPORT  IN END PAGE
