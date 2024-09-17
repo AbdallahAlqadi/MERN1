@@ -1,6 +1,7 @@
 const User=require('../models/users')
 
 //في مرحله get غالبا بس بستخدم res
+//get
 exports.getUsers=async (req,res)=>{
 try{
     const users=await User.find();
@@ -14,7 +15,7 @@ catch(error){
 }
 
 
-
+//Post
 exports.creatUser=async (req,res)=>{
 const {username,phone}=req.body;
 
@@ -33,6 +34,8 @@ catch(error){
 
 
 
+
+//اذا بدي اعرض جزء من كل obj
 exports.getUsersName = async (req, res) => {
     try {
         const users = await User.find();

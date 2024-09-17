@@ -1,4 +1,5 @@
-
+    // الصفحه المتعبقه بالروابط  
+// غالبا الصفحات التي يجري عليها تعديل هي routes,controller
 const express=require('express')
 const cors=require('cors');
 const routes=express.Router();
