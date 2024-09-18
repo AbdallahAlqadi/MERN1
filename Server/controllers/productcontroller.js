@@ -40,10 +40,8 @@ catch(error){
 
 
 
-
+//بتعمل فلتره ل data حسب category
 exports.creatProductpost=async (req,res)=>{
-   
-    
     try{
        const postcategory=req.body.category;
        const products=await Product.find({category:postcategory})
