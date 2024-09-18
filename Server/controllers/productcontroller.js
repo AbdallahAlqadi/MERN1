@@ -41,7 +41,19 @@ catch(error){
 
 
 
+exports.creatProductpost=async (req,res)=>{
+   
+    
+    try{
+       const postcategory=req.body.category;
+       const products=await Product.find({category:postcategory})
+       res.status(200).json(products);
 
+    }
+    catch(error){
+        res.status(400).json({message});
+    }
+    }
 
 
 
