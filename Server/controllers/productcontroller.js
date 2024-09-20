@@ -52,6 +52,7 @@ catch(error){
 exports.creatProductpost=async (req,res)=>{
     try{
        const postcategory=req.body.category;
+       //انه رح يبحث عن category يلي اسمها category1
        const products=await Product.find({category:postcategory})
        res.status(200).json(products);
 
@@ -68,6 +69,7 @@ exports.creatProductpost=async (req,res)=>{
     //بدي استخدم post
     exports.Productsbetween=async (req,res)=>{
         try{
+            // القيم يلي بدو يجيبها من postman
            const lowsalary=req.body.lowsalary;
            const maxsalary=req.body.maxsalary;
            console.log(lowsalary,maxsalary)
