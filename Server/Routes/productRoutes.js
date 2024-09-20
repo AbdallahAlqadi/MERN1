@@ -5,12 +5,13 @@ const cors=require('cors');
 const routes=express.Router();
 require('dotenv').config();
 
-const {getProduct,creatProduct,creatProductpost}=require('../controllers/productcontroller'); //كل ما اعمل POST ,GET لازم اكتب اسم FUN هون
+const {getProduct,creatProduct,creatProductpost,Productsbetween}=require('../controllers/productcontroller'); //كل ما اعمل POST ,GET لازم اكتب اسم FUN هون
 
 
 routes.get('/produts',getProduct);
 routes.post('/produts',creatProduct);
 routes.post('/produts/category',creatProductpost);
+routes.post('/produts/salary',Productsbetween);
 
 module.exports=routes;
 

@@ -41,6 +41,7 @@ catch(error){
 
 
 //اذا بدي اعرض جزء من كل obj
+//هون بستدعي username,id
 exports.getUsersName = async (req, res) => {
     try {
         const users = await User.find();
