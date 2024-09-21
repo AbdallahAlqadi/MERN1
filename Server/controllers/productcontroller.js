@@ -87,4 +87,24 @@ exports.creatProductpost=async (req,res)=>{
 
 
 
+//لازم ابعت id مع الرابط 
+//لازم ابعت القيم لجديده يلي بدي اعدلها
+exports.UpdateProducts=async(req,res)=>{
+
+    try{
+const id=req.params.id;
+const body=req.body;
+console.log(body)
+const updateproduct=await Product.findByIdAndUpdate(id,body,{new:true})
+res.status(200).json(updateproduct)
+    }
+
+    catch(error){
+        res.status(500).json({error:error.message});
+
+    }
+}
+
+
+
 //ما بعمل EXPORT  IN END PAGE
