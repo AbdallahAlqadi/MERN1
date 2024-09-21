@@ -107,4 +107,23 @@ res.status(200).json(updateproduct)
 
 
 
+
+
+
+exports.getProductbyid=async (req,res)=>{
+    try{
+        const id=req.params.id;
+        const selectproduct=await Product.findOne({_id: id})
+    
+      
+        res.json(selectproduct);
+    }
+    
+    catch(error){
+        res.status(500).json({error:error.message});
+    }
+    }
+
+
+
 //ما بعمل EXPORT  IN END PAGE
