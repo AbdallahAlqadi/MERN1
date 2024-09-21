@@ -110,6 +110,8 @@ res.status(200).json(updateproduct)
 
 
 
+
+//بعرض data يلي id الها نفس يلي حطيته بالرابط
 exports.getProductbyid=async (req,res)=>{
     try{
         const id=req.params.id;
