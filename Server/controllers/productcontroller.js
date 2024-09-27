@@ -87,12 +87,26 @@ exports.creatProductpost=async (req,res)=>{
 
 
 
+
+
+
+
+
+
 //لازم ابعت id مع الرابط 
 //لازم ابعت القيم لجديده يلي بدي اعدلها
+//بدي اعمل update and (id لازم احطه بالرابط يلي هي جزئيه(get) اما القيم يلي بحطها  في body هي جزئيه(post))
+
+
+//put
 exports.UpdateProducts=async(req,res)=>{
+    //مكس بين get  و post
 
     try{
+
+        //لازم  ابعت id مع الرابط
 const id=req.params.id;
+//لازم  ابعت القيم لجديده يلي بدي اعدلها
 const body=req.body;
 console.log(body)
 const updateproduct=await Product.findByIdAndUpdate(id,body,{new:true})
@@ -106,16 +120,12 @@ res.status(200).json(updateproduct)
 }
 
 
-
-
-
-
-
 //بعرض data يلي id الها نفس يلي حطيته بالرابط
-//
+//get
 exports.getProductbyid=async (req,res)=>{
     try{
         const id=req.params.id;
+        //هاي يلي بتهمل filter ل Data
         const selectproduct=await Product.findOne({_id: id})
     res.status(200).json(selectproduct);
     }
@@ -126,5 +136,33 @@ exports.getProductbyid=async (req,res)=>{
     }
 
 
+//delet
+exports.DeletProductbyid = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const deletproduct = await Product.findOneAndDelete({ _id: id }); // شرط الحذف بناءً على id
+      res.status(200).json(deletproduct);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
 
+
+
+    //delet
+    // exports.DeletProductbyid=async (req,res)=>{
+    //     try{
+    //         const id=req.params.id;
+    //         const deletproduct=await Product.findOneAndDelete(id)
+    //     res.status(200).json(deletproduct);
+    //     }
+        
+    //     catch(error){
+    //         res.status(500).json({error:error.message});
+    //     }
+    //     }
+    
+
+ 
+          
 //ما بعمل EXPORT  IN END PAGE
