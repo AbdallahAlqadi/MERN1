@@ -135,6 +135,7 @@ exports.getProductbyid=async (req,res)=>{
     }
     }
 
+    
 
 //delet
 exports.DeletProductbyid = async (req, res) => {
@@ -149,19 +150,7 @@ exports.DeletProductbyid = async (req, res) => {
 
 
 
-    //delet
-    // exports.DeletProductbyid=async (req,res)=>{
-    //     try{
-    //         const id=req.params.id;
-    //         const deletproduct=await Product.findOneAndDelete(id)
-    //     res.status(200).json(deletproduct);
-    //     }
-        
-    //     catch(error){
-    //         res.status(500).json({error:error.message});
-    //     }
-    //     }
-    
+  
 
  
           
