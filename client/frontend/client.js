@@ -1,8 +1,13 @@
-var table = document.getElementById('mytable');
-console.log(table);
+//الفكره باختصار انه جبت data من mongodb وعرضتها في table
+
+// الكود عباره عن اني اجيب DATA  من API(GET)
+//GET: هي يلي بتجيب  البيانات من API
+
+//get
 
 var AllData = [];
 async function getData() {
+    //الرابط يلي بكون معرفه ب backend
     await fetch('http://127.0.0.1:5002/api/users')
         .then(response => response.json())
         .then(data => {
