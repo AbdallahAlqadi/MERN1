@@ -46,4 +46,5 @@ async function getData() {
         });
 }
 
+//استدعاء function
 getData(); // Call the function to fetch and render the data
