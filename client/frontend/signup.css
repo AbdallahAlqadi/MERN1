@@ -22,7 +22,7 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px; /* Increased space between form and table */
+    margin-bottom: 40px;
 }
 
 #form h2 {
@@ -49,23 +49,24 @@ body {
 
 #form input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: rgb(192, 8, 146);
 }
 
 #form button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: rgb(192, 8, 146); /* تصحيح هنا */
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #form button:hover {
-    background-color: #0056b3;
+    background-color: #e007a2;
+    transform: scale(1.03);
 }
 
 .table-container {
@@ -88,10 +89,11 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* تعديل الظل */
 }
 
 thead {
-    background-color: #007bff;
+    background-color: rgb(192, 8, 146);
     color: white;
 }
 
