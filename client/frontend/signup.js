@@ -1,6 +1,5 @@
 var form = document.getElementById('form');
 
-
 form.addEventListener('submit', async function (e) {
     e.preventDefault(); // منع الإرسال التلقائي للنموذج
 
@@ -48,12 +47,6 @@ form.addEventListener('submit', async function (e) {
     }
 });
 
-
-
-
-
-
-
 // دالة getData لعرض البيانات في الجدول
 
 var AllData = [];
@@ -70,7 +63,7 @@ async function getData() {
         tbody.innerHTML = '';
 
         // التحقق من أن AllData موجودة وهي مصفوفة
-        for (var i = 0; i < AllData.length; i++) {
+        for (let i = 0; i < AllData.length; i++) {
             // إنشاء صف جديد
             var tr1 = document.createElement('tr');
             tr1.className = 'tr1-t6';
@@ -94,28 +87,31 @@ async function getData() {
             var td4 = document.createElement('td');
             td4.className = 'td4-t6';
             td4.innerHTML = AllData[i].password;
-//button delete
+
+            // زر الحذف
             var button = document.createElement('button');
             button.className = 'button-t6';
-            button.innerHTML = 'Delete'; // Corrected to string
+            button.innerHTML = 'Delete';
             var td5 = document.createElement('td');
             td5.className = 't5-t6';
-            td5.appendChild(button); // Corrected to append the button as a child
+            td5.appendChild(button);
 
-            button.onclick=function(){
-               var id = AllData[i]._id;
-                deleteData(id); 
-            }
+            // دالة الضغط لحذف المستخدم
+            (function(id) {
+                button.onclick = function() {
+                    deleteData(id); 
+                };
+            })(AllData[i]._id);
 
-//button update
+            // زر التحديث
             var button2 = document.createElement('button');
             button2.className = 'button2-t6';
-            button2.innerHTML = 'update'; // Corrected to string
+            button2.innerHTML = 'Update'; // تعديل الاسم ليكون بالحروف الكبيرة
             
             var td6 = document.createElement('td');
             td6.className = 't6-t6';
-            td6.appendChild(button2); // Corrected to append the button as a child
-            
+            td6.appendChild(button2);
+
             // إضافة الأعمدة إلى الصف
             tr1.append(td1);
             tr1.append(td2);
@@ -123,7 +119,6 @@ async function getData() {
             tr1.append(td4);
             tr1.append(td5);
             tr1.append(td6);
-
 
             // إضافة الصف إلى tbody
             tbody.append(tr1);
@@ -136,34 +131,33 @@ async function getData() {
 // استدعاء function
 getData(); // Call the function to fetch and render the data
 
-
-
-
-
-
-
-
 async function deleteData(id) {
     try {
-        const response = await fetch(`http://127.0.0.1:5002/api/signup/${id}`, { // Include id in URL
-            method: 'DELETE',  // Use DELETE method for deletion
+        const response = await fetch(`http://127.0.0.1:5002/api/signup/${id}`, {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
 
         if (!response.ok) {
-            throw new Error('Failed to delete data');
+            const errorText = await response.text();  // قراءة الاستجابة النصية للتفاصيل
+            throw new Error(`Failed to delete data: ${response.statusText}. Response: ${errorText}`);
         }
 
-        const result = await response.json();
-        console.log('Success:', result);
+        if (response.status !== 204) {  // إذا لم تكن الحالة 204 (لا توجد محتويات)
+            const result = await response.json(); // تحليل إذا كانت الاستجابة JSON
+            console.log('Success:', result);
+        } else {
+            console.log('Deletion successful. No content returned.');
+        }
+
+        // تحديث البيانات بعد الحذف
+        getData();
 
     } catch (error) {
         console.error('Error:', error);
     }
-    console.log(id)
 
+    console.log('Deleted ID:', id); // Log the id of the deleted item
 }
-
-
