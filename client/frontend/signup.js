@@ -1,4 +1,6 @@
 var form = document.getElementById('form');
+
+
 form.addEventListener('submit', async function (e) {
     e.preventDefault(); // منع الإرسال التلقائي للنموذج
 
@@ -16,7 +18,7 @@ form.addEventListener('submit', async function (e) {
 
     try {
         const response = await fetch('http://127.0.0.1:5002/api/signup', {
-            method: 'POST',
+            method: 'POST',  //لازم capital
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -45,6 +47,12 @@ form.addEventListener('submit', async function (e) {
         console.error('Error:', error); // التعامل مع الخطأ في حال حدوثه
     }
 });
+
+
+
+
+
+
 
 // دالة getData لعرض البيانات في الجدول
 
@@ -86,12 +94,36 @@ async function getData() {
             var td4 = document.createElement('td');
             td4.className = 'td4-t6';
             td4.innerHTML = AllData[i].password;
+//button delete
+            var button = document.createElement('button');
+            button.className = 'button-t6';
+            button.innerHTML = 'Delete'; // Corrected to string
+            var td5 = document.createElement('td');
+            td5.className = 't5-t6';
+            td5.appendChild(button); // Corrected to append the button as a child
 
+            button.onclick=function(){
+               var id = AllData[i]._id;
+                deleteData(id); 
+            }
+
+//button update
+            var button2 = document.createElement('button');
+            button2.className = 'button2-t6';
+            button2.innerHTML = 'update'; // Corrected to string
+            
+            var td6 = document.createElement('td');
+            td6.className = 't6-t6';
+            td6.appendChild(button2); // Corrected to append the button as a child
+            
             // إضافة الأعمدة إلى الصف
             tr1.append(td1);
             tr1.append(td2);
             tr1.append(td3);
             tr1.append(td4);
+            tr1.append(td5);
+            tr1.append(td6);
+
 
             // إضافة الصف إلى tbody
             tbody.append(tr1);
@@ -103,3 +135,35 @@ async function getData() {
 
 // استدعاء function
 getData(); // Call the function to fetch and render the data
+
+
+
+
+
+
+
+
+async function deleteData(id) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5002/api/signup/${id}`, { // Include id in URL
+            method: 'DELETE',  // Use DELETE method for deletion
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete data');
+        }
+
+        const result = await response.json();
+        console.log('Success:', result);
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    console.log(id)
+
+}
+
+

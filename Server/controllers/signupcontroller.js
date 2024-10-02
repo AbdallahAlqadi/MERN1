@@ -4,7 +4,7 @@ const Signup = require('../models/signup');
 
 
 //post
-
+//ببعت Data ل backend
 exports.createSignup = async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -35,3 +35,20 @@ exports.getSignup=async (req,res)=>{
         res.status(500).json({error:error.message});
     }
     }
+    
+
+
+
+
+
+    //Delete
+    exports.Deletsignupbyid = async (req, res) => {
+        try {
+          const id = req.params.id;
+          const deletproduct = await Product.findOneAndDelete({ _id: id }); // شرط الحذف بناءً على id
+          res.status(200).json(deletproduct);
+        } catch (error) {
+          res.status(500).json({ error: error.message });
+        }
+      };
+    
