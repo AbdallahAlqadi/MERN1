@@ -46,18 +46,21 @@ async function getData() {
 
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = ''; // مسح المحتوى الحالي
-
+var i=1;
         data.forEach(user => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
+             <td>${i}</td>
                 <td>${user._id}</td>
                 <td>${user.username}</td>
                 <td>${user.email}</td>
                 <td>${user.password}</td>
                 <td><button id="delete" onclick="deleteData('${user._id}')">Delete</button></td>
                 <td><button id="update" onclick="updateUser('${user._id}')">Update</button></td>
+                
             `;
             tbody.append(tr);
+            i++;
         });
 
     } catch (error) {
