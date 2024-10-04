@@ -43,7 +43,6 @@ async function getData() {
     try {
         const response = await fetch('http://127.0.0.1:5002/api/signup/users');
         const data = await response.json();
-        console.log(data);
 
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = ''; // مسح المحتوى الحالي
