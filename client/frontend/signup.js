@@ -103,12 +103,7 @@ async function getData() {
                 };
             })(AllData[i]._id);
 
-            //دالة الضغط لتعديل المستخدم
-            (function(id) {
-                button2.onclick = function() {
-                    updateData()
-                };
-            })(AllData[i]._id);
+       
 
             // زر التحديث
             var button2 = document.createElement('button');
@@ -173,31 +168,3 @@ async function deleteData(id) {
 }
 
 
-//update
-async function updateData(id, updatedData) {
-    try {
-        const response = await fetch(`http://127.0.0.1:5002/api/signup/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedData) // إرسال البيانات المحدثة
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();  // قراءة الاستجابة النصية للتفاصيل
-            throw new Error(`Failed to update data: ${response.statusText}. Response: ${errorText}`);
-        }
-
-        const result = await response.json(); // تحليل إذا كانت الاستجابة JSON
-        console.log('Success:', result);
-
-        // تحديث البيانات بعد التعديل
-        getData();
-
-    } catch (error) {
-        console.error('Error:', error);
-    }
-
-    console.log('Updated ID:', id); // Log the id of the updated item
-}
