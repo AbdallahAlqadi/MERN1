@@ -52,3 +52,26 @@ exports.getSignup=async (req,res)=>{
         }
       };
     
+
+
+
+         //update
+         exports.Updatesignup=async(req,res)=>{
+            //مكس بين get  و post
+        
+            try{
+        
+                //لازم  ابعت id مع الرابط
+        const id=req.params.id;
+        //لازم  ابعت القيم لجديده يلي بدي اعدلها
+        const body=req.body;
+       //ابحث عن المستخدم اللي بدي اعدله
+        const updatesignup=await Signup.findByIdAndUpdate(id,body,{new:true})
+        res.status(200).json(updatesignup)
+            }
+        
+            catch(error){
+                res.status(500).json({error:error.message});
+        
+            }
+        }

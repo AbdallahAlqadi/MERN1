@@ -3,8 +3,10 @@
 // الكود عباره عن اني اجيب DATA  من API(GET)
 //GET: هي يلي بتجيب  البيانات من API
 
-//get
 
+
+
+//get
 var AllData = [];
 async function getData() {
     //الرابط يلي بكون معرفه ب backend
