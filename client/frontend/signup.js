@@ -217,17 +217,3 @@ async function updateData(id, updatedUser) {
     }
 }
 
-// ربط زر التحديث مع دالة updateData
-(function(id, username, email, password) {
-    button2.onclick = function() {
-        // إدخال البيانات الجديدة لتحديث المستخدم
-        const updatedUser = {
-            username: prompt('Enter new username:', username),
-            email: prompt('Enter new email:', email),
-            password: prompt('Enter new password:', password)
-        };
-
-        // استدعاء دالة التحديث
-        updateData(id, updatedUser);
-    };
-})(AllData[i]._id, AllData[i].username, AllData[i].email, AllData[i].password);
