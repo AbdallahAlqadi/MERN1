@@ -131,6 +131,9 @@ async function getData() {
 // استدعاء function
 getData(); // Call the function to fetch and render the data
 
+
+
+//Delete
 async function deleteData(id) {
     try {
         const response = await fetch(`http://127.0.0.1:5002/api/signup/${id}`, {
