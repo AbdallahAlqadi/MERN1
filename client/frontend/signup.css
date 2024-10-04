@@ -1,3 +1,13 @@
+:root {
+    --primary-color: rgb(48, 8, 192);
+    --danger-color: #ff4d4d;
+    --success-color: #4CAF50;
+    --hover-danger: #ff1a1a;
+    --hover-success: #45a049;
+    --text-color: #333;
+    --background-color: #f7f7f7;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +16,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -28,7 +38,7 @@ body {
 #form h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-color);
 }
 
 #form label {
@@ -49,24 +59,25 @@ body {
 
 #form input:focus {
     outline: none;
-    border-color:  rgb(48, 8, 192);
+    border-color: var(--primary-color);
 }
 
 #form button {
     width: 100%;
     padding: 12px;
-    background-color: rgb(48, 8, 192); /* تصحيح هنا */
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #form button:hover {
-    background-color:  rgb(48, 8, 192);
+    background-color: var(--primary-color);
     transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .table-container {
@@ -82,18 +93,18 @@ body {
 .table-container h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-color);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* تعديل الظل */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 thead {
-    background-color:  rgb(48, 8, 192);
+    background-color: var(--primary-color);
     color: white;
 }
 
@@ -118,7 +129,7 @@ tbody tr:hover {
 }
 
 tbody td {
-    color: #333;
+    color: var(--text-color);
 }
 
 tbody tr td:last-child {
@@ -129,34 +140,48 @@ tbody td:last-child {
     font-weight: bold;
 }
 
-
-
 #delete {
     font-size: large;
-    background-color: #ff4d4d; /* لون خلفية أحمر */
-    color: white; /* لون النص أبيض */
-    padding: 10px 20px; /* مساحة داخلية */
-    border: none; /* بدون حدود */
-    border-radius: 5px; /* زوايا مدورة */
-    cursor: pointer; /* مؤشر اليد عند المرور فوق الزر */
-    transition: background-color 0.3s; /* تأثير عند تغيير اللون */
+    background-color: var(--danger-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #delete:hover {
-    background-color: #ff1a1a; /* لون خلفية عند التحويم */
+    background-color: var(--hover-danger);
 }
 
 #update {
     font-size: large;
-    background-color: #4CAF50; /* لون خلفية أخضر */
-    color: white; /* لون النص أبيض */
-    padding: 10px 20px; /* مساحة داخلية */
-    border: none; /* بدون حدود */
-    border-radius: 5px; /* زوايا مدورة */
-    cursor: pointer; /* مؤشر اليد عند المرور فوق الزر */
-    transition: background-color 0.3s; /* تأثير عند تغيير اللون */
+    background-color: var(--success-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #update:hover {
-    background-color: #45a049; /* لون خلفية عند التحويم */
+    background-color: var(--hover-success);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 600px) {
+    .container, .table-container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    #form h2, .table-container h2 {
+        font-size: 1.5em;
+    }
+    
+    #form input, #form button {
+        font-size: 14px;
+    }
 }
