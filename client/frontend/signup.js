@@ -1,3 +1,4 @@
+
 var form = document.getElementById('form');
 
 
@@ -65,6 +66,9 @@ async function getData() {
     }
 }
 
+
+
+
 // Delete
 async function deleteData(id) {
     try {
@@ -81,6 +85,10 @@ async function deleteData(id) {
         console.error('Error:', error);
     }
 }
+
+
+
+
 
 // Update
 async function updateUser(id) {
