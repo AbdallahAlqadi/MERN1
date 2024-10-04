@@ -49,13 +49,13 @@ body {
 
 #form input:focus {
     outline: none;
-    border-color: rgb(192, 8, 146);
+    border-color:  rgb(48, 8, 192);
 }
 
 #form button {
     width: 100%;
     padding: 12px;
-    background-color: rgb(192, 8, 146); /* تصحيح هنا */
+    background-color: rgb(48, 8, 192); /* تصحيح هنا */
     color: white;
     border: none;
     border-radius: 5px;
@@ -65,7 +65,7 @@ body {
 }
 
 #form button:hover {
-    background-color: #e007a2;
+    background-color:  rgb(48, 8, 192);
     transform: scale(1.03);
 }
 
@@ -93,7 +93,7 @@ table {
 }
 
 thead {
-    background-color: rgb(192, 8, 146);
+    background-color:  rgb(48, 8, 192);
     color: white;
 }
 
@@ -130,3 +130,33 @@ tbody td:last-child {
 }
 
 
+
+#delete {
+    font-size: large;
+    background-color: #ff4d4d; /* لون خلفية أحمر */
+    color: white; /* لون النص أبيض */
+    padding: 10px 20px; /* مساحة داخلية */
+    border: none; /* بدون حدود */
+    border-radius: 5px; /* زوايا مدورة */
+    cursor: pointer; /* مؤشر اليد عند المرور فوق الزر */
+    transition: background-color 0.3s; /* تأثير عند تغيير اللون */
+}
+
+#delete:hover {
+    background-color: #ff1a1a; /* لون خلفية عند التحويم */
+}
+
+#update {
+    font-size: large;
+    background-color: #4CAF50; /* لون خلفية أخضر */
+    color: white; /* لون النص أبيض */
+    padding: 10px 20px; /* مساحة داخلية */
+    border: none; /* بدون حدود */
+    border-radius: 5px; /* زوايا مدورة */
+    cursor: pointer; /* مؤشر اليد عند المرور فوق الزر */
+    transition: background-color 0.3s; /* تأثير عند تغيير اللون */
+}
+
+#update:hover {
+    background-color: #45a049; /* لون خلفية عند التحويم */
+}

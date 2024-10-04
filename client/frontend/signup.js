@@ -54,8 +54,8 @@ async function getData() {
                 <td>${user.username}</td>
                 <td>${user.email}</td>
                 <td>${user.password}</td>
-                <td><button onclick="deleteData('${user._id}')">Delete</button></td>
-                <td><button onclick="updateUser('${user._id}')">Update</button></td>
+                <td><button id="delete" onclick="deleteData('${user._id}')">Delete</button></td>
+                <td><button id="update" onclick="updateUser('${user._id}')">Update</button></td>
             `;
             tbody.append(tr);
         });
