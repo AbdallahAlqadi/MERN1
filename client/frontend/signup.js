@@ -1,5 +1,8 @@
 var form = document.getElementById('form');
 
+
+
+//post
 form.addEventListener('submit', async function (e) {
     e.preventDefault(); // منع الإرسال التلقائي للنموذج
 
@@ -12,7 +15,7 @@ form.addEventListener('submit', async function (e) {
 
     try {
         const response = await fetch('http://127.0.0.1:5002/api/signup', {
-            method: 'POST',
+            method: 'POST', //لازم capital
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData)
         });
@@ -30,6 +33,9 @@ form.addEventListener('submit', async function (e) {
         console.error('Error:', error);
     }
 });
+
+
+
 
 // دالة getData لعرض البيانات في الجدول
 async function getData() {
@@ -59,7 +65,7 @@ async function getData() {
     }
 }
 
-// دالة لحذف المستخدم
+// Delete
 async function deleteData(id) {
     try {
         const response = await fetch(`http://127.0.0.1:5002/api/signup/${id}`, {
@@ -76,7 +82,7 @@ async function deleteData(id) {
     }
 }
 
-// دالة لتحديث البيانات
+// Update
 async function updateUser(id) {
     const updatedUser = {
         username: document.getElementById('username').value,
