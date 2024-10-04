@@ -49,6 +49,7 @@ form.addEventListener('submit', async function (e) {
 
 // دالة getData لعرض البيانات في الجدول
 
+// دالة getData لعرض البيانات في الجدول
 var AllData = [];
 async function getData() {
     try {
@@ -67,27 +68,27 @@ async function getData() {
             // إنشاء صف جديد
             var tr1 = document.createElement('tr');
             tr1.className = 'tr1-t6';
-
+        
             // إنشاء عمود 'id'
             var td1 = document.createElement('td');
             td1.className = 'td1-t6';
             td1.innerHTML = AllData[i]._id;
-
+        
             // إنشاء عمود 'username'
             var td2 = document.createElement('td');
             td2.className = 'td2-t6';
             td2.innerHTML = AllData[i].username;
-
+        
             // إنشاء عمود 'email'
             var td3 = document.createElement('td');
             td3.className = 'td3-t6';
             td3.innerHTML = AllData[i].email;
-
+        
             // إنشاء عمود 'password'
             var td4 = document.createElement('td');
             td4.className = 'td4-t6';
             td4.innerHTML = AllData[i].password;
-
+        
             // زر الحذف
             var button = document.createElement('button');
             button.className = 'button-t6';
@@ -95,16 +96,14 @@ async function getData() {
             var td5 = document.createElement('td');
             td5.className = 't5-t6';
             td5.appendChild(button);
-
+        
             // دالة الضغط لحذف المستخدم
             (function(id) {
                 button.onclick = function() {
                     deleteData(id); 
                 };
             })(AllData[i]._id);
-
-       
-
+        
             // زر التحديث
             var button2 = document.createElement('button');
             button2.className = 'button2-t6';
@@ -113,7 +112,25 @@ async function getData() {
             var td6 = document.createElement('td');
             td6.className = 't6-t6';
             td6.appendChild(button2);
-
+        
+            // ربط زر التحديث مع دالة updateData داخل الحلقة
+            (function(id, usernameField, emailField, passwordField) {
+                button2.onclick = function() {
+                    // إدخال البيانات الجديدة لتحديث المستخدم من الحقول في النموذج
+                    const updatedUser = {
+                        username: usernameField.value,
+                        email: emailField.value,
+                        password: passwordField.value
+                    };
+        
+                    // استدعاء دالة التحديث
+                    updateData(id, updatedUser);
+                };
+            })(AllData[i]._id, 
+              document.getElementById('username'), 
+              document.getElementById('email'), 
+              document.getElementById('password'));
+        
             // إضافة الأعمدة إلى الصف
             tr1.append(td1);
             tr1.append(td2);
@@ -121,14 +138,16 @@ async function getData() {
             tr1.append(td4);
             tr1.append(td5);
             tr1.append(td6);
-
+        
             // إضافة الصف إلى tbody
             tbody.append(tr1);
         }
+        
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
 
 // استدعاء function
 getData(); // Call the function to fetch and render the data
@@ -168,3 +187,47 @@ async function deleteData(id) {
 }
 
 
+
+
+
+// PUT (تحديث البيانات)
+async function updateData(id, updatedUser) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5002/api/signup/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedUser) // إرسال البيانات الجديدة لتحديث المستخدم
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();  // قراءة الاستجابة النصية للتفاصيل
+            throw new Error(`Failed to update data: ${response.statusText}. Response: ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log('Update Success:', result);
+
+        // تحديث البيانات بعد التعديل
+        getData();
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// ربط زر التحديث مع دالة updateData
+(function(id, username, email, password) {
+    button2.onclick = function() {
+        // إدخال البيانات الجديدة لتحديث المستخدم
+        const updatedUser = {
+            username: prompt('Enter new username:', username),
+            email: prompt('Enter new email:', email),
+            password: prompt('Enter new password:', password)
+        };
+
+        // استدعاء دالة التحديث
+        updateData(id, updatedUser);
+    };
+})(AllData[i]._id, AllData[i].username, AllData[i].email, AllData[i].password);
