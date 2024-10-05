@@ -58,14 +58,22 @@
           </button>
         </div>
         <div class="modal-body">
-
-<input type="text" id="muser">
-<input type="email" id="memail">
-<input type="text" id="mpass">
-        </div>
+          <div class="form-group">
+              <label for="muser">Username</label>
+              <input type="text" id="muser" class="form-control">
+          </div>
+          <div class="form-group">
+              <label for="memail">Email</label>
+              <input type="email" id="memail" class="form-control">
+          </div>
+          <div class="form-group">
+              <label for="mpass">Password</label>
+              <input type="password" id="mpass" class="form-control">
+          </div>
+      </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="click" id="change" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
