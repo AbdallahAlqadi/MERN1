@@ -94,6 +94,7 @@ async function deleteData(id) {
 
 // Update
 async function updateUser(id) {
+    
     const updatedUser = {
         username: document.getElementById('username').value,
         email: document.getElementById('email').value,
