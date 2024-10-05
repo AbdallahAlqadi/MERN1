@@ -117,9 +117,7 @@ async function updateUser(id) {
         getData(); //  الجدول بعد التحديث
 
     } catch (error) {
-        
         console.error('Error:', error);
     }
-    
 }
 
