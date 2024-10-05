@@ -46,7 +46,7 @@ async function getData() {
 
         const tbody = document.getElementById('tbody');
         tbody.innerHTML = ''; // مسح المحتوى الحالي
-var i=1;
+    var i=1;
         data.forEach(user => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
