@@ -56,7 +56,7 @@ async function getData() {
                 <td>${user.email}</td>
                 <td>${user.password}</td>
                  <td><button id="delete" onclick="deleteData('${user._id}')">Delete</button></td>
-<td><button id="update" data-toggle="modal" data-target="#exampleModal" onclick="updateUser('${user._id}')">Update</button></td>
+<td><button id="update" data-toggle="modal" data-target="#exampleModal" onclick="updateinfo('${user.username}', '${user.email}', '${user.password}')">Update</button></td>
                 
             `;
             tbody.append(tr);
@@ -71,6 +71,7 @@ async function getData() {
 
 // استدعاء getData عند تحميل الصفحة
 getData();
+
 
 
 
@@ -94,6 +95,18 @@ async function deleteData(id) {
 
 
 
+function updateinfo(username, email, password) {
+    var muser = document.getElementById('muser');
+    var memail = document.getElementById('memail');
+    var mpassword = document.getElementById('mpass');
+
+    muser.value = username;
+    memail.value = email;
+    mpassword.value = password;
+}
+
+
+
 
 // Update
 async function updateUser(id) {
@@ -105,6 +118,7 @@ async function updateUser(id) {
     };
 
     try {
+
         const response = await fetch(`http://127.0.0.1:5002/api/signup/update/${id}`, {
             method: 'PUT',  //لازم capital
             headers: { 'Content-Type': 'application/json' },
