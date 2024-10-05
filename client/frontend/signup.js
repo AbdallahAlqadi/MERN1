@@ -69,6 +69,10 @@ var i=1;
 }
 
 
+// استدعاء getData عند تحميل الصفحة
+getData();
+
+
 
 
 // Delete
@@ -94,7 +98,7 @@ async function deleteData(id) {
 
 // Update
 async function updateUser(id) {
-    
+
     const updatedUser = {
         username: document.getElementById('username').value,
         email: document.getElementById('email').value,
@@ -110,12 +114,10 @@ async function updateUser(id) {
 
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         console.log('Update Success');
-        getData(); // تحديث الجدول بعد التحديث
+        getData(); //  الجدول بعد التحديث
 
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-// استدعاء getData عند تحميل الصفحة
-getData();
