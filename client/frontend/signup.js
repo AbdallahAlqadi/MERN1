@@ -89,7 +89,7 @@ async function deleteData(id) {
 // Update
 var currentUserId; // متغير لتخزين معرف المستخدم الحالي
 
-function updateinfo(id, username, email) {
+function updateinfo(id, username, email,password) {
     currentUserId = id; // تخزين معرف المستخدم الحالي
     document.getElementById('muser').value = username;
     document.getElementById('memail').value = email;
