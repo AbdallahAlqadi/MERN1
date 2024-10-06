@@ -93,7 +93,7 @@ function updateinfo(id, username, email,password) {
     currentUserId = id; // تخزين معرف المستخدم الحالي
     document.getElementById('muser').value = username;
     document.getElementById('memail').value = email;
-    document.getElementById('mpass').value = password; // مسح كلمة المرور القديمة
+    document.getElementById('mpass').value = password; 
 }
 
 // إضافة حدث زر التحديث
