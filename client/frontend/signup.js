@@ -116,7 +116,7 @@ document.getElementById('change').addEventListener('click', async function(e) {
 
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         console.log('Update Success');
-        getData(); // تحديث الجدول بعد التحديث
+        getData(); //  الجدول بعد التحديث
 
         // إغلاق المودال بعد التحديث
         $('#exampleModal').modal('hide'); // استخدم jQuery لإغلاق المودال
