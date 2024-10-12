@@ -71,8 +71,12 @@ exports.getUsersName = async (req, res) => {
 
 
 
-//ما بعمل EXPORT  IN END PAGE
 
+
+
+//بجيبلي data يلي username and email يلي ببعتهم من خلال body
+
+//post
 exports.userLogin=async(req,res)=>{
     const {username,password}=req.body;
     try{
@@ -101,3 +105,8 @@ exports.userLogin=async(req,res)=>{
     }
 
 }
+
+
+
+
+//ما بعمل EXPORT  IN END PAGE
