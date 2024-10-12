@@ -25,6 +25,8 @@ exports.creatUser=async (req,res)=>{
 const {username,phone,password}=req.body;
 
 try{
+
+    //وظيفه السطر انه يخفي password ب mongo
     const  hashedPassword=await bcrypt.hash(password,10);
 
     const newUser={username:username,phone:phone,password:hashedPassword};
