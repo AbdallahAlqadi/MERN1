@@ -109,4 +109,51 @@ exports.userLogin=async(req,res)=>{
 
 
 
+//get(filter)
+
+exports.veryfyjwt=  async(req,res,next)=>{
+
+
+
+    //ببعت token من خلال header
+    try{
+        const token=req.header('auth').replace('Bearer ','');
+
+        if(!token){
+            return res.status(401).json({message:'no token, authorization denird'})
+        }
+        console.log('before jwt verify ')
+        const verified=jwt.verify(token,'fdfdfsddsdffeqweqqeqeqeqweq')
+        req.user=verified.userId;
+        console.log(req.user)
+next();
+    }
+
+
+    catch(error){
+        res.status(500).json({error:error.message})
+    }
+}
+
+
+
+//get
+//ببعت {username,password} and token
+exports.home= async(req,res)=>{
+user=req.user;
+
+try{
+    chekUser=await User.findById(user);
+    res.status(200).json({message:'welcome to home page',user:chekUser.username})
+}
+
+ catch(error){
+        res.status(500).json({message:'error in home page'})
+    }
+}
+
+    
+
+
+
 //ما بعمل EXPORT  IN END PAGE
