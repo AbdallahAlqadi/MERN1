@@ -5,3 +5,4 @@ const API = axios.create({
 })
 
 export const fetchUsers=()=>API.get('./users')
+export const posthUsers=()=>API.post('./users')
