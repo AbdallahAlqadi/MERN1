@@ -143,7 +143,7 @@ function Home() {
                 }}
               >
                 <div>
-                  <strong>ID:</strong> {user._id} <br />
+                  <strong>UserName:</strong> {user.username} <br />
                   <strong>Phone:</strong> {user.phone}
                 </div>
                 <button
