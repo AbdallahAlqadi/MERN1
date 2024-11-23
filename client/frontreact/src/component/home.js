@@ -30,7 +30,8 @@ function Home() {
       const res = await adduser(user);
       if (res.status === 200) {
         alert("User added successfully!");
-        setUsers((prevUsers) => [...prevUsers, res.data]);
+        setUsers((prevUsers) => [...prevUsers, user]);
+        
       } else {
         alert("Failed to add user!");
       }
