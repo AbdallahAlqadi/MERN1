@@ -1,96 +1,170 @@
 import React, { useEffect, useState } from "react";
-import { fetchUsers, posthUsers } from "../back/api";
+import { fetchUsers, adduser, deleteUser } from "../back/api";
 
 function Home() {
   const [users, setUsers] = useState([]);
 
-  // Fetch users when the component mounts
   useEffect(() => {
     const getUsers = async () => {
-      const res = await fetchUsers();
-      setUsers(res.data);
+      try {
+        const res = await fetchUsers();
+        setUsers(res.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        alert("Failed to fetch users.");
+      }
     };
     getUsers();
-  }, []); // Empty dependency array to run only once when the component mounts
+  }, []);
 
-  // Log users when the state changes
-  useEffect(() => {
-    console.log(users); // This will log the updated users when the state changes
-  }, [users]);
+  const addUserHandler = async (e) => {
+    e.preventDefault();
 
-  // Function to send data
-  const Senddata = async (event) => {
-    event.preventDefault(); // Prevent the default form submission
-
-    const name = document.getElementById("name").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
 
-    // Prepare user data as an object
-    const userData = {
-      name,
-      password,
-      phone,
-    };
+    const user = { username, phone, password };
 
-    // Send the data to the server
     try {
-      const response = await posthUsers(userData);
-      console.log(response); // Handle the server's response
-    } catch (err) {
-      console.error("Error sending data:", err); // Handle any errors
+      const res = await adduser(user);
+      if (res.status === 200) {
+        alert("User added successfully!");
+        setUsers((prevUsers) => [...prevUsers, res.data]);
+      } else {
+        alert("Failed to add user!");
+      }
+    } catch (error) {
+      console.error("Error adding user:", error);
+      alert("Error occurred while adding the user.");
+    }
+  };
+
+  const deleteUserHandler = async (id) => {
+    try {
+      const res = await deleteUser(id);
+      if (res.status === 200) {
+        alert("User deleted successfully!");
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+      } else {
+        alert(`Failed to delete user! Status: ${res.status}`);
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("Error occurred while deleting the user.");
     }
   };
 
   return (
-    <>
-      <div style={{ marginLeft: "30px", fontSize: "xx-large", marginTop: "25px" }}>
-        welcome
-      </div>
+    <div style={{ fontFamily: "Arial, sans-serif", padding: "20px", backgroundColor: "#f4f4f9" }}>
+      <h1 style={{ textAlign: "center", color: "#333" }}>Welcome to User Manager</h1>
 
-      {/* Form element with onSubmit handler */}
       <form
         style={{
-          backgroundColor: "black",
-          width: "250px",
-          height: "200px",
-          paddingTop: "50px",
-          marginLeft: "44%",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          padding: "20px",
+          width: "330px",
+          margin: "20px auto",
         }}
-        onSubmit={Senddata} // Trigger Senddata when form is submitted
+        onSubmit={addUserHandler}
       >
-        <input id="name" type="text" style={{ marginTop: "7%", height: "25px" }} placeholder="name" />
-        <br />
-        <input id="phone" type="tel" style={{ marginTop: "7%", height: "25px" }} placeholder="phone" />
-        <br />
-        <input id="password" type="text" style={{ marginTop: "7%", height: "25px" }} placeholder="password" />
-        <br />
-        <button
-          type="submit" // Submit the form when clicked
+        <h3 style={{ textAlign: "center", marginBottom: "15px", color: "#444" }}>Add New User</h3>
+        <input
+          id="name"
+          type="text"
           style={{
-            marginTop: "7%",
-            fontSize: "large",
+            width: "90%",
+            marginBottom: "10px",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+          placeholder="Name"
+        />
+        <input
+          id="phone"
+          type="tel"
+          style={{
+            width: "90%",
+            marginBottom: "10px",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+          placeholder="Phone"
+        />
+        <input
+          id="password"
+          type="text"
+          style={{
+            width: "90%",
+            marginBottom: "15px",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+          placeholder="Password"
+        />
+        <button
+          type="submit"
+          style={{
+            width: "80%",
+            backgroundColor: "#28a745",
+            color: "white",
             border: "none",
-            borderRadius: "10px",
-            padding: "5px",
-            width: "100px",
+            borderRadius: "5px",
+            padding: "10px",
+            fontSize: "16px",
+            cursor: "pointer",
           }}
         >
-          Send
+          Add User
         </button>
       </form>
 
-      {/* Display users if there are any */}
       {users.length > 0 && (
-        <ul>
-          {users.map((user) => (
-            <li key={user._id}>
-              {user._id} <br /> {user.phone}
-            </li>
-          ))}
-        </ul>
+        <div style={{ maxWidth: "600px", margin: "20px auto" }}>
+          <h3 style={{ textAlign: "center", color: "#555" }}>Users List</h3>
+          <ul style={{ listStyle: "none", padding: "0" }}>
+            {users.map((user) => (
+              <li
+                key={user._id}
+                style={{
+                  backgroundColor: "#fff",
+                  marginBottom: "10px",
+                  padding: "15px",
+                  borderRadius: "8px",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <strong>ID:</strong> {user._id} <br />
+                  <strong>Phone:</strong> {user.phone}
+                </div>
+                <button
+                  style={{
+                    backgroundColor: "red",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    padding: "8px 12px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => deleteUserHandler(user._id)}
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

@@ -5,4 +5,6 @@ const API = axios.create({
 })
 
 export const fetchUsers=()=>API.get('./users')
-export const posthUsers=()=>API.post('./users')
+export const adduser=(user)=>API.post('./users',user)
+
+export const deleteUser=(id)=>API.delete(`./users/${id}`);

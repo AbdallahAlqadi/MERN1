@@ -157,3 +157,17 @@ try{
 
 
 //ما بعمل EXPORT  IN END PAGE
+
+
+
+
+
+exports.Deleteuser = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const deletuser = await User.findOneAndDelete({ _id: id }); // شرط الحذف بناءً على id
+      res.status(200).json(deletuser);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
