@@ -1,0 +1,65 @@
+/* .login-container: تعيين الحاوية الرئيسية */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* تأكد من أن الحاوية تغطي الشاشة */
+  background-color: #f0f0f0;
+  padding: 0 20px; /* إضافة padding من الجانبين */
+}
+
+/* .login-form: تنسيق النموذج */
+.login-form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* تعيين أقصى عرض للنموذج */
+}
+
+/* .login-form h1: تنسيق العنوان */
+.login-form h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem; /* زيادة حجم العنوان */
+  color: #333;
+}
+
+/* .login-form input: تنسيق المدخلات */
+.login-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem; /* زيادة المسافة بين المدخلات */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-left: -16px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #4CAF50; /* تغيير اللون عند التركيز */
+}
+
+/* .login-form button: تنسيق الزر */
+.login-form button {
+  width: 100%;
+  padding: 1rem;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #45a049;
+}
+
+.login-form button:active {
+  background-color: #388e3c;
+}
