@@ -47,7 +47,7 @@
 .login-form button {
   width: 100%;
   padding: 1rem;
-  background-color: #4CAF50;
+  background-color: #ad4caf;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -57,9 +57,9 @@
 }
 
 .login-form button:hover {
-  background-color: #45a049;
+  background-color: #cc70e1;
 }
 
 .login-form button:active {
-  background-color: #388e3c;
+  background-color: #8e3887;
 }

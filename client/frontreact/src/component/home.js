@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import { fetchUsers, adduser, deleteUser } from "../back/api";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -100,6 +101,11 @@ function Home() {
     handleClose();
     alert("User updated successfully!");
   };
+
+
+    const location = useLocation();
+    const { username, password } = location.state || {};
+
 
   return (
     <div
@@ -296,6 +302,14 @@ function Home() {
           </Typography>
         </Box>
       </Modal>
+
+
+      <div>
+      <h1>Welcome to Home Page</h1>
+      <p>Username: {username}</p>
+      <p>Password: {password}</p>
+    </div>
+
     </div>
   );
 }
