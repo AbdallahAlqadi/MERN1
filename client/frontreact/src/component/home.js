@@ -146,6 +146,7 @@ function Home() {
             border: "1px solid #ccc",
           }}
           placeholder="Name"
+          required
         />
         <input
           id="phone"
@@ -158,6 +159,7 @@ function Home() {
             border: "1px solid #ccc",
           }}
           placeholder="Phone"
+          required
         />
         <input
           id="password"
@@ -170,12 +172,13 @@ function Home() {
             border: "1px solid #ccc",
           }}
           placeholder="Password"
+          required
         />
         <button
           type="submit"
           style={{
             width: "80%",
-            backgroundColor: "#28a745",
+            backgroundColor: "pink",
             color: "white",
             border: "none",
             borderRadius: "5px",
