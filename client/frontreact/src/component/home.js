@@ -108,16 +108,21 @@ function Home() {
 
 
   return (
+    
     <div
+    
       style={{
         fontFamily: "Arial, sans-serif",
         padding: "20px",
         backgroundColor: "#f4f4f9",
       }}
     >
-      <h1 style={{ textAlign: "center", color: "#333" }}>
-        Welcome to User Manager
-      </h1>
+           <div style={{ border: "5px solid green",fontSize:"large" }}>
+  <h1>Welcome to Home Page</h1>
+  <p>Username: {username}</p>
+  <p>Password: {password}</p>
+</div>
+
 
       <form
         style={{
@@ -307,11 +312,6 @@ function Home() {
       </Modal>
 
 
-      <div>
-      <h1>Welcome to Home Page</h1>
-      <p>Username: {username}</p>
-      <p>Password: {password}</p>
-    </div>
     
     </div>
   );
