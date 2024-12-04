@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchUsers, adduser, deleteUser } from "../back/api";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -22,6 +22,17 @@ function Home() {
   const [users, setUsers] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { username, password } = location.state || {};
+
+  useEffect(() => {
+    // Check if username or password is null
+    if (!username || !password) {
+      navigate("/login"); // Redirect to login page
+    }
+  }, [username, password, navigate]);
 
   const handleOpen = (user) => {
     setSelectedUser(user);
@@ -102,27 +113,19 @@ function Home() {
     alert("User updated successfully!");
   };
 
-
-    const location = useLocation();
-    const { username, password } = location.state || {};
-
-
   return (
-    
     <div
-    
       style={{
         fontFamily: "Arial, sans-serif",
         padding: "20px",
         backgroundColor: "#f4f4f9",
       }}
     >
-           <div style={{ border: "5px solid green",fontSize:"large" }}>
-  <h1>Welcome to Home Page</h1>
-  <p>Username: {username}</p>
-  <p>Password: {password}</p>
-</div>
-
+      <div style={{ border: "5px solid green", fontSize: "large" }}>
+        <h1>Welcome to Home Page</h1>
+        <p>Username: {username}</p>
+        <p>Password: {password}</p>
+      </div>
 
       <form
         style={{
@@ -310,9 +313,6 @@ function Home() {
           </Typography>
         </Box>
       </Modal>
-
-
-    
     </div>
   );
 }
