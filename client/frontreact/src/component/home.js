@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -27,12 +28,10 @@ function Home() {
   const location = useLocation();
   const { username, password } = location.state || {};
 
-  useEffect(() => {
-    // Check if username or password is null
-    if (!username || !password) {
-      navigate("/login"); // Redirect to login page
-    }
-  }, [username, password, navigate]);
+ 
+
+    
+    
 
   const handleOpen = (user) => {
     setSelectedUser(user);
@@ -45,6 +44,32 @@ function Home() {
   };
 
   useEffect(() => {
+
+
+    const token=sessionStorage.getItem('jwt')
+    
+   const vaildtoken = async () =>{
+    try {
+      const response = await axios.get('http://127.0.0.1:5002/api/jwt',{
+        headers: {
+          'auth':'Bearer '+token
+        }
+      })
+      console.log(response.data)
+    }
+    catch (error) {
+      console.log(error)
+
+if(error.response.status===401){
+  navigate('/')
+}
+
+    }
+   }
+   vaildtoken()
+
+
+
     const getUsers = async () => {
       try {
         const res = await fetchUsers();
