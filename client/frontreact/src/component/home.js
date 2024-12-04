@@ -186,8 +186,8 @@ function Home() {
           type="submit"
           style={{
             width: "80%",
-            backgroundColor: "pink",
-            color: "white",
+            backgroundColor: "greenyellow",
+            color: "black",
             border: "none",
             borderRadius: "5px",
             padding: "10px",
