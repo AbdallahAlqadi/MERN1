@@ -1,13 +1,6 @@
 const Signup = require('../models/signup');
 
-//creat:بستخدمها لما بدي  انزل بياناتي في داتابيز   او اضييف بيانات
-
-//find:لما بدي اعمل read ل البيانات او احذفها او  تعديلها
-
-
-
-//post
-//ببعت Data ل backend
+// Create a new signup
 exports.createSignup = async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -17,64 +10,79 @@ exports.createSignup = async (req, res) => {
         
         const dbSignup = await Signup.create(newSignup);
         
-        res.status(200).json({ message: `User created successfully: ${dbSignup}` });
+        res.status(201).json({ message: `User created successfully`, data: dbSignup });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-
-//get
-
-exports.getSignup=async (req,res)=>{
-    try{
-        const signup=await Signup.find();
-    
-        console.log(signup)  //معناها انه اظهرلي الناتج داخل TERMENAL وليس داخل INSPECT
-        res.json(signup);
+// Get all signups
+exports.getSignup = async (req, res) => {
+    try {
+        const signup = await Signup.find();
+        console.log(signup);
+        res.status(200).json(signup);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-    
-    catch(error){
-        res.status(500).json({error:error.message});
-    }
-    }
-    
+};
 
-
-
-
-
-    //Delete
-    exports.Deletsignupbyid = async (req, res) => {
-        try {
-          const id = req.params.id;
-          const deletuser = await Signup.findOneAndDelete({ _id: id }); // شرط الحذف بناءً على id
-          res.status(200).json(deletuser);
-        } catch (error) {
-          res.status(500).json({ error: error.message });
+// Get a signup by ID
+exports.getSignupById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const signup = await Signup.findById(id);
+        if (!signup) {
+            return res.status(404).json({ message: 'User not found' });
         }
-      };
-    
-
-
-
-//update
-
-exports.Updatesignup=async(req,res)=>{
-    //مكس بين get  و post
-
-    try{
-
-const id=req.params.id;
-//لازم  ابعت القيم لجديده يلي بدي اعدلها
-const body=req.body;
-console.log(body)
-const updatesignup=await Signup.findByIdAndUpdate(id,body,{new:true})
-res.status(200).json(updatesignup)
+        res.status(200).json(signup);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
+};
 
-    catch(error){
-        res.status(500).json({error:error.message});
-
+// Delete a signup by ID
+exports.Deletsignupbyid = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const deletuser = await Signup.findOneAndDelete({ _id: id });
+        if (!deletuser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User deleted successfully', data: deletuser });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-}
+};
+
+// Update a signup completely by ID
+exports.Updatesignup = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const body = req.body;
+        console.log(body);
+
+        const updatesignup = await Signup.findByIdAndUpdate(id, body, { new: true });
+        if (!updatesignup) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(updatesignup);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Partially update a signup by ID
+exports.partialUpdateSignup = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updates = req.body;
+        const updatedSignup = await Signup.findByIdAndUpdate(id, updates, { new: true });
+        if (!updatedSignup) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(updatedSignup);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
