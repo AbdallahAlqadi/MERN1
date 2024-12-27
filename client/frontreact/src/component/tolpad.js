@@ -13,6 +13,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
+import PersonIcon from '@mui/icons-material/Person';
 
 // تعريف قائمة التنقل
 const NAVIGATION = [
@@ -30,6 +31,13 @@ const NAVIGATION = [
     title: 'Orders',
     icon: <ShoppingCartIcon />,
   },
+  {
+
+segment: 'users',
+title: 'Users',
+    icon: <PersonIcon />,
+  },
+
   {
     kind: 'divider',
   },
@@ -52,6 +60,7 @@ const NAVIGATION = [
         title: 'Traffic',
         icon: <DescriptionIcon />,
       },
+      
     ],
   },
   {
