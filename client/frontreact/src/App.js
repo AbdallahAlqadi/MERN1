@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './component/home';
 import Login from './component/loginCheck';
 import DashboardLayoutBasic  from './component/tolpad';
-
+import Newdash from './component/newdah';
+import Orders from './component/oreders';
+import users from './component/user';
 function App() {
   return (
     <Router>
@@ -13,6 +15,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/tolpad" element={<DashboardLayoutBasic />} />
+          <Route path="/newdash" element={<Newdash />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/users" element={<users />} />
+
 
 
         </Routes>

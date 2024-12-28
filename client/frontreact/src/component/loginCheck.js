@@ -27,7 +27,7 @@ const Login = () => {
       };
 
       // التنقل إلى الصفحة الرئيسية وإرسال البيانات
-      navigate('/home');
+      navigate('/tolpad');
       sessionStorage.setItem('jwt',res.data.token)
     } catch (error) {
       console.error(error.response.data);
