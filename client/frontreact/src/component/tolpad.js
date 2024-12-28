@@ -31,13 +31,13 @@ const demoTheme = createTheme({
       md: 600,
       lg: 1200,
       xl: 1536,
-    },
+    }
   },
 });
 
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
-  if(pathname =='/LogOut'){
+  if(pathname ==='/LogOut'){
     console.log('logging out')
     sessionStorage.removeItem('jwt')
     window.location.href = "/"
@@ -146,6 +146,7 @@ useEffect(()=>{
 setuser(res.data.user)
 // alert(res.data.user)
 if(res.data.user.roul==='admin'){
+  console.log(res.data.user)
 setdashNavigate([
   {
     kind: 'header',
