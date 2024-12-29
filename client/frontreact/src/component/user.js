@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUsers, deleteUser ,adduser} from '../back/api';
+import { fetchUsers, deleteUser } from '../back/api';
 import {
   Table,
   TableBody,
@@ -13,9 +13,10 @@ import {
   TablePagination,
   TextField,
   IconButton,
-  CircularProgress
+  CircularProgress,
+  Button,
 } from '@mui/material';
-import { Delete, Edit } from '@mui/icons-material';
+import { Delete, Edit, Save } from '@mui/icons-material';
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -25,6 +26,8 @@ function Users() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
+  const [editUserId, setEditUserId] = useState(null);
+  const [editUserData, setEditUserData] = useState({});
 
   useEffect(() => {
     fetchUsers().then((res) => {
@@ -60,9 +63,26 @@ function Users() {
 
   const handleDelete = (id) => {
     deleteUser(id).then(() => {
-      // Remove the deleted user from the state
       setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
     });
+  };
+
+  const handleEdit = (id) => {
+    setEditUserId(id);
+    const userToEdit = users.find((user) => user.id === id);
+    setEditUserData(userToEdit);
+  };
+
+  const handleSave = () => {
+    // Logic to save updated user data (e.g., send to backend)
+    setUsers((prevUsers) =>
+      prevUsers.map((user) => (user.id === editUserId ? editUserData : user))
+    );
+    setEditUserId(null);
+  };
+
+  const handleInputChange = (e, field) => {
+    setEditUserData({ ...editUserData, [field]: e.target.value });
   };
 
   const filteredUsers = users.filter((user) =>
@@ -82,7 +102,6 @@ function Users() {
         User Management
       </Typography>
 
-      {/* Search Field */}
       <TextField
         label="Search by Username"
         variant="outlined"
@@ -92,7 +111,6 @@ function Users() {
         onChange={handleSearchChange}
       />
 
-      {/* Table */}
       <TableContainer component={Paper}>
         {loading ? (
           <CircularProgress />
@@ -119,14 +137,54 @@ function Users() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((user) => (
                   <TableRow key={user.id}>
-                    <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.phone}</TableCell>
-                    <TableCell>{user.roul}</TableCell>
                     <TableCell>
-                      <IconButton color="primary">
-                        <Edit />
-                      </IconButton>
-                      <IconButton color="secondary" onClick={() => handleDelete(user.id)}>
+                      {editUserId === user.id ? (
+                        <TextField
+                          value={editUserData.name}
+                          onChange={(e) => handleInputChange(e, 'name')}
+                        />
+                      ) : (
+                        user.name
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {editUserId === user.id ? (
+                        <TextField
+                          value={editUserData.phone}
+                          onChange={(e) => handleInputChange(e, 'phone')}
+                        />
+                      ) : (
+                        user.phone
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {editUserId === user.id ? (
+                        <TextField
+                          value={editUserData.roul}
+                          onChange={(e) => handleInputChange(e, 'roul')}
+                        />
+                      ) : (
+                        user.roul
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {editUserId === user.id ? (
+                        <Button
+                          color="primary"
+                          startIcon={<Save />}
+                          onClick={handleSave}
+                        >
+                          Save
+                        </Button>
+                      ) : (
+                        <IconButton color="primary" onClick={() => handleEdit(user.id)}>
+                          <Edit />
+                        </IconButton>
+                      )}
+                      <IconButton
+                        color="secondary"
+                        onClick={() => handleDelete(user.id)}
+                      >
                         <Delete />
                       </IconButton>
                     </TableCell>
@@ -137,7 +195,6 @@ function Users() {
         )}
       </TableContainer>
 
-      {/* Pagination */}
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
