@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUsers, deleteUser } from '../back/api';
+import { fetchUsers, deleteUser ,adduser} from '../back/api';
 import {
   Table,
   TableBody,
