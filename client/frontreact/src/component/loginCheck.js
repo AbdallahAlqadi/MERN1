@@ -16,7 +16,6 @@ const Login = () => {
       // إرسال بيانات تسجيل الدخول إلى الخادم
       const res = await axios.post('http://127.0.0.1:5002/api/users/login', { username, password });
       setToken(res.data.token);
-
       console.log(res.data.token);
       alert('Login Successful');
 

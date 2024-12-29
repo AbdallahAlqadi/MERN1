@@ -126,7 +126,8 @@ exports.veryfyjwt=  async(req,res,next)=>{
         const verified=jwt.verify(token,'fdfdfsddsdffeqweqqeqeqeqweq')
         req.user=verified.userId;
         console.log(req.user)
-next();
+        
+      next();
     }
 
 
@@ -141,10 +142,13 @@ next();
 //ببعت {username,password} and token
 exports.home= async(req,res)=>{
 user=req.user;
+roul=req.roul;
 
 try{
     chekUser=await User.findById(user);
-    res.status(200).json({message:'welcome to home page',user:chekUser.username})
+    chekroul=await User.findById(user);
+
+    res.status(200).json({message:'welcome to home page',user:chekUser.username,roul:chekroul.roul})
 }
 
  catch(error){

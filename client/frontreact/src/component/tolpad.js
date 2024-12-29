@@ -9,9 +9,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import LayersIcon from '@mui/icons-material/Layers';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-// import { useDemoRouter } from '@toolpad/core/internal';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import PersonIcon from '@mui/icons-material/Person';
@@ -19,6 +18,7 @@ import Newdash from './newdah';
 import Orders from './oreders';
 import axios from 'axios';
 import Users from './user';
+
 const demoTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'data-toolpad-color-scheme',
@@ -31,16 +31,17 @@ const demoTheme = createTheme({
       md: 600,
       lg: 1200,
       xl: 1536,
-    }
+    },
   },
 });
 
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
-  if(pathname ==='/LogOut'){
-    console.log('logging out')
-    sessionStorage.removeItem('jwt')
-    window.location.href = "/"
+
+  if (pathname === '/LogOut') {
+    console.log('logging out');
+    sessionStorage.removeItem('jwt');
+    window.location.href = '/';
   }
 
   const router = React.useMemo(() => {
@@ -55,8 +56,6 @@ function useDemoRouter(initialPath) {
 }
 
 function DemoPageContent({ pathname }) {
- 
-  
   return (
     <Box
       sx={{
@@ -65,45 +64,33 @@ function DemoPageContent({ pathname }) {
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
-        
       }}
-      
     >
       <Typography>Dashboard content for {pathname}</Typography>
-      
     </Box>
   );
 }
 
 DemoPageContent.propTypes = {
   pathname: PropTypes.string.isRequired,
-  
 };
 
 function DashboardLayoutBasic(props) {
   const { window } = props;
-  const [user,setuser]=useState([])
-  const navigate=useNavigate()
-  
-  const allPages=[{
-    path:'/dashboard',
-    component:<Newdash/>
-  },{
-    path:'/orders',
-    component:<Orders/>
-  },
-  {
-    path: '/users',
-    component: <Users/>, // Ensure users is imported and defined
-  },
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
+  const allPages = [
+    { path: '/dashboard', component: <Newdash /> },
+    { path: '/orders', component: <Orders /> },
+    { path: '/users', component: <Users /> },
+  ];
 
-]
-  // const [CurrentComponent,setCurrentComponent]=useState(allPages[0].component)
-const [currentComponant,setCurrentComponant]= useState(<Newdash/>)
-    const [dashNavigate,setdashNavigate]=useState([{
+  const [currentComponent, setCurrentComponent] = useState(<Newdash />);
+  const [dashNavigate, setDashNavigate] = useState([
+    {
       kind: 'header',
-      title: 'Main items',  
+      title: 'Main items',
     },
     {
       segment: 'dashboard',
@@ -121,136 +108,114 @@ const [currentComponant,setCurrentComponant]= useState(<Newdash/>)
     {
       segment: 'LogOut',
       title: 'LogOut',
-      icon: <ExitToAppIcon onClick={()=>{
-        console.log('logout')
-      }} />
-    }
-    ])
-    const handelLogOut = ()=>{
-      sessionStorage.removeItem('jwt');
-      navigate('/')
-    }
-  const router = useDemoRouter('/Dashboard');
+      icon: <ExitToAppIcon />,
+    },
+  ]);
 
-// this link for Home
-useEffect(()=>{
-  const token=sessionStorage.getItem('jwt')
-  
- const invaliedToken=async()=>{
-  try {
-    const res = await axios.get('http://127.0.0.1:5002/api/home',{
-      headers: {
-        'auth':'Bearer '+token
+  const handleLogOut = () => {
+    sessionStorage.removeItem('jwt');
+    navigate('/');
+  };
+
+  const router = useDemoRouter('/dashboard');
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('jwt');
+
+    const invaliedToken = async () => {
+      try {
+        const res = await axios.get('http://127.0.0.1:5002/api/home', {
+          headers: {
+            auth: 'Bearer ' + token,
+          },
+        });
+
+        console.log('User data:', res.data.user);
+        setUser(res.data.user);
+
+        if (res.data.roul === 'admin') {
+          console.log('User is admin');
+          setDashNavigate([
+            {
+              kind: 'header',
+              title: 'Main items',
+            },
+            {
+              segment: 'dashboard',
+              title: 'Dashboard',
+              icon: <DashboardIcon />,
+            },
+            {
+              segment: 'orders',
+              title: 'Orders',
+              icon: <ShoppingCartIcon />,
+            },
+            {
+              segment: 'users',
+              title: 'Users',
+              icon: <PersonIcon />,
+            },
+            {
+              kind: 'divider',
+            },
+            {
+              kind: 'header',
+              title: 'Analytics',
+            },
+            {
+              segment: 'reports',
+              title: 'Reports',
+              icon: <BarChartIcon />,
+              children: [
+                {
+                  segment: 'sales',
+                  title: 'Sales',
+                  icon: <DescriptionIcon />,
+                },
+                {
+                  segment: 'traffic',
+                  title: 'Traffic',
+                  icon: <DescriptionIcon />,
+                },
+              ],
+            },
+            {
+              segment: 'integrations',
+              title: 'Integrations',
+              icon: <LayersIcon />,
+            },
+            {
+              segment: 'LogOut',
+              title: 'LogOut',
+              onClick: handleLogOut,
+              icon: <ExitToAppIcon />,
+            },
+          ]);
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
+
+        if (err.response && err.response.status === 401) {
+          navigate('/');
+        } else {
+          console.error('Unexpected error:', err.message);
+        }
       }
-    })
-setuser(res.data.user)
-console(res.data.user)
-if(res.data.user.roul==='admin'){
-  console.log(res.data.user)
-setdashNavigate([
-  {
-    kind: 'header',
-    title: 'Main items',  
-  },
-  {
-    segment: 'dashboard',
-    title: 'Dashboard',
-    icon: <DashboardIcon />,
-  },
-  {
-    segment: 'orders',
-    title: 'Orders',
-    icon: <ShoppingCartIcon />,
-  },
-  {
-    segment: 'users',
-    title: 'users',
-    icon: <PersonIcon/>,
-  },
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Analytics',
-  },
-  {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Sales',
-        icon: <DescriptionIcon />,
-      },
-      {
-        segment: 'traffic',
-        title: 'Traffic',
-        icon: <DescriptionIcon />,
-      },
-      
-    ],
-  },
-  {
-    segment: 'integrations',
-    title: 'Integrations',
-    icon: <LayersIcon />,
-  },
-  {
-    segment: 'LogOut',
-    title: 'LogOut',
-    onClick:handelLogOut,
-    icon: 
-      <ExitToAppIcon /> 
-     },
-  
+    };
 
-])
-}
-  } catch (err) {
-    console.log(err.response)
-    if(err.response.status===401){
-      navigate('/')
-    }
-  }
- }
- invaliedToken()
- console.log(router)
- setCurrentComponant(allPages.find((page) => page.path === router.pathname)?.component)
-// console.log('this is th com',currentComponant)
-},[router])
+    invaliedToken();
+    setCurrentComponent(allPages.find((page) => page.path === router.pathname)?.component);
+  }, [router]);
 
-
-
-  // Remove this const when copying and pasting into your project.
   const demoWindow = window !== undefined ? window() : undefined;
 
   return (
-    // preview-start
-    <AppProvider
-      navigation={dashNavigate}
-      router={router}
-      theme={demoTheme}
-      
-      window={demoWindow}
-      
-      
-    >
-
+    <AppProvider navigation={dashNavigate} router={router} theme={demoTheme} window={demoWindow}>
       <DashboardLayout>
-      <Typography>{user.roul}</Typography>
-
-        <PageContainer>
-        {currentComponant}
-
-        </PageContainer>
-      {/* <DemoPageContent pathname={router.pathname} /> */}
+        <Typography>{user.roul || 'Unknown Role'}</Typography>
+        <PageContainer>{currentComponent}</PageContainer>
       </DashboardLayout>
-
-
     </AppProvider>
-    // preview-end
   );
 }
 
