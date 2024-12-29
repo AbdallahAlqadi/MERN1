@@ -138,13 +138,13 @@ useEffect(()=>{
   
  const invaliedToken=async()=>{
   try {
-    const res = await axios.get('http://127.0.0.1:5002/api/jwt',{
+    const res = await axios.get('http://127.0.0.1:5002/api/home',{
       headers: {
         'auth':'Bearer '+token
       }
     })
 setuser(res.data.user)
-// alert(res.data.user)
+console(res.data.user)
 if(res.data.user.roul==='admin'){
   console.log(res.data.user)
 setdashNavigate([
