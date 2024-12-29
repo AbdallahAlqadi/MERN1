@@ -1,60 +1,152 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUsers } from '../back/api';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import { fetchUsers, deleteUser } from '../back/api';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  TableSortLabel,
+  TablePagination,
+  TextField,
+  IconButton,
+  CircularProgress
+} from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 
 function Users() {
-    const [user,setUser]=useState([])
-    var users = [
-        { id: 1, name: 'JohnDoe', year: 'Watch, Belt', price: 120 },
-        { id: 2, name: 'JaneSmith', year: 'Bag, Shoes', price: 200 },
-        { id: 3, name: 'AliceJones', year: 'Ring, Necklace', price: 300 },
-      ];
-useEffect(()=>{
-    fetchUsers().then(res=>{
-        const formcarupdated=res.data.map(user=>({
-            id:users._id,
-            name:user.name,
-           
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('name');
 
-        }))
-      
-users=formcarupdated
-setUser(formcarupdated)
-    })
-},[])
+  useEffect(() => {
+    fetchUsers().then((res) => {
+      const updatedUsers = res.data.map((user) => ({
+        id: user._id,
+        name: user.username,
+        phone: user.phone,
+        roul: user.roul,
+      }));
+      setUsers(updatedUsers);
+      setLoading(false);
+    });
+  }, []);
 
-  
+  const handleRequestSort = (property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleDelete = (id) => {
+    deleteUser(id).then(() => {
+      // Remove the deleted user from the state
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    });
+  };
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedUsers = filteredUsers.sort((a, b) => {
+    if (orderBy === 'name') {
+      return order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+    }
+    return 0;
+  });
 
   return (
     <>
       <Typography variant="h4" gutterBottom>
-        Order Page
+        User Management
       </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>car ID</TableCell>
-              <TableCell>carname</TableCell>
-              <TableCell>Items</TableCell>
-              <TableCell>roul</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {user.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell>{user.name}</TableCell>
-           
 
+      {/* Search Field */}
+      <TextField
+        label="Search by Username"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
+
+      {/* Table */}
+      <TableContainer component={Paper}>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sortDirection={orderBy === 'name' ? order : false}>
+                  <TableSortLabel
+                    active={orderBy === 'name'}
+                    direction={orderBy === 'name' ? order : 'asc'}
+                    onClick={() => handleRequestSort('name')}
+                  >
+                    Username
+                  </TableSortLabel>
+                </TableCell>
+                <TableCell>Phone</TableCell>
+                <TableCell>Role</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {sortedUsers
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.phone}</TableCell>
+                    <TableCell>{user.roul}</TableCell>
+                    <TableCell>
+                      <IconButton color="primary">
+                        <Edit />
+                      </IconButton>
+                      <IconButton color="secondary" onClick={() => handleDelete(user.id)}>
+                        <Delete />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        )}
       </TableContainer>
-      <Typography variant="h6" align="right" marginTop={2}>
-      </Typography>
+
+      {/* Pagination */}
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={filteredUsers.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 }
