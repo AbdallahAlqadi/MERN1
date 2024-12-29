@@ -15,6 +15,8 @@ import {
   IconButton,
   CircularProgress,
   Button,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import { Delete, Edit, Save } from '@mui/icons-material';
 
@@ -159,10 +161,14 @@ function Users() {
                     </TableCell>
                     <TableCell>
                       {editUserId === user.id ? (
-                        <TextField
+                        <Select
                           value={editUserData.roul}
                           onChange={(e) => handleInputChange(e, 'roul')}
-                        />
+                          fullWidth
+                        >
+                          <MenuItem value="Admin">Admin</MenuItem>
+                          <MenuItem value="User">User</MenuItem>
+                        </Select>
                       ) : (
                         user.roul
                       )}
