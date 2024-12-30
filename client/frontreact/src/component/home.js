@@ -49,25 +49,25 @@ function Home() {
     const token=sessionStorage.getItem('jwt')
     
     //مسوول عن انه اذا ما سجلت دخول يرجعني لصفحه login
-   const vaildtoken = async () =>{
-    try {
-      const response = await axios.get('http://127.0.0.1:5002/api/jwt',{
-        headers: {
-          'auth':'Bearer '+token
-        }
-      })
-      console.log(response.data)
-    }
-    catch (error) {
-      console.log(error)
+//    const vaildtoken = async () =>{
+//     try {
+//       const response = await axios.get('http://127.0.0.1:5002/api/jwt',{
+//         headers: {
+//           'auth':'Bearer '+token
+//         }
+//       })
+//       console.log(response.data)
+//     }
+//     catch (error) {
+//       console.log(error)
 
-if(error.response.status===401){
-  navigate('/')
-}
+// if(error.response.status===401){
+//   navigate('/')
+// }
 
-    }
-   }
-   vaildtoken()
+//     }
+//    }
+//    vaildtoken()
 
 
 
