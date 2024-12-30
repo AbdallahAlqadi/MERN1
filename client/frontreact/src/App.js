@@ -5,7 +5,7 @@ import Login from './component/loginCheck';
 import DashboardLayoutBasic  from './component/tolpad';
 import Newdash from './component/newdah';
 import Orders from './component/oreders';
-import users from './component/user';
+import Users from './component/user';
 function App() {
   return (
     <Router>
@@ -17,7 +17,7 @@ function App() {
           <Route path="/tolpad" element={<DashboardLayoutBasic />} />
           <Route path="/newdash" element={<Newdash />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/users" element={<users />} />
+          <Route path="/users" element={<Users />} />
 
 
 

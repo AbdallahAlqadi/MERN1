@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUsers, deleteUser } from '../back/api';
+import { fetchUsers, deleteUser, updateUser } from '../back/api';
 import {
   Table,
   TableBody,
@@ -76,11 +76,18 @@ function Users() {
   };
 
   const handleSave = () => {
-    // Logic to save updated user data (e.g., send to backend)
-    setUsers((prevUsers) =>
-      prevUsers.map((user) => (user.id === editUserId ? editUserData : user))
-    );
-    setEditUserId(null);
+    updateUser(editUserId, editUserData)
+      .then(() => {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === editUserId ? { ...user, ...editUserData } : user
+          )
+        );
+        setEditUserId(null);
+      })
+      .catch((error) => {
+        console.error('Error updating user:', error);
+      });
   };
 
   const handleInputChange = (e, field) => {

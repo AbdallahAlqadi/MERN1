@@ -5,7 +5,7 @@ const cors=require('cors');
 const routes=express.Router();
 require('dotenv').config();
 
-const {getUsers,creatUser, getUsersName,userLogin,home,veryfyjwt,Deleteuser}=require('../controllers/userControllers'); //كل ما اعمل POST ,GET لازم اكتب اسم FUN هون
+const {getUsers,creatUser, getUsersName,userLogin,home,veryfyjwt,Deleteuser,Updateuser}=require('../controllers/userControllers'); //كل ما اعمل POST ,GET لازم اكتب اسم FUN هون
 
 
 routes.get('/users',getUsers);
@@ -15,6 +15,7 @@ routes.post('/users/login',userLogin);
 routes.get('/jwt',veryfyjwt);
 routes.get('/home',veryfyjwt,home);
 routes.delete('/users/:id',Deleteuser);
+routes.put('/users/update/:id', Updateuser);
 
 
 module.exports=routes;

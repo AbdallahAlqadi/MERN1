@@ -8,3 +8,4 @@ export const fetchUsers=()=>API.get('./users')
 export const adduser=(user)=>API.post('./users',user)
 
 export const deleteUser=(id)=>API.delete(`./users/${id}`);
+export const updateUser = (id, data) => API.put(`./users/update/${id}`, data);
