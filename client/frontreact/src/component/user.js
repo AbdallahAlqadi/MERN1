@@ -21,8 +21,15 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Slide,
+  Box,
 } from '@mui/material';
-import { Delete, Edit, Save } from '@mui/icons-material';
+import { Delete, Edit, Save, Warning } from '@mui/icons-material';
+import CloseIcon from '@mui/icons-material/Close';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -234,16 +241,29 @@ function Users() {
       <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
+        TransitionComponent={Transition}
       >
-        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogTitle>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box display="flex" alignItems="center">
+              <Warning color="error" style={{ marginRight: '8px' }} />
+              <Typography variant="h6">Confirm Delete</Typography>
+            </Box>
+            <IconButton onClick={() => setDeleteDialogOpen(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </DialogTitle>
         <DialogContent>
-          <Typography>Are you sure you want to delete this user?</Typography>
+          <Typography>
+            Are you sure you want to delete this user? This action cannot be undone.
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={confirmDelete} color="secondary">
+          <Button onClick={confirmDelete} color="secondary" variant="contained">
             Delete
           </Button>
         </DialogActions>
