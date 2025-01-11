@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchUsers, deleteUser, updateUser,adduser } from '../back/api';
+import { fetchUsers, deleteUser, updateUser, addUser } from '../back/api';
 import {
   Table,
   TableBody,
@@ -17,6 +17,10 @@ import {
   Button,
   Select,
   MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 import { Delete, Edit, Save } from '@mui/icons-material';
 
@@ -30,6 +34,8 @@ function Users() {
   const [orderBy, setOrderBy] = useState('name');
   const [editUserId, setEditUserId] = useState(null);
   const [editUserData, setEditUserData] = useState({});
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     fetchUsers().then((res) => {
@@ -64,8 +70,15 @@ function Users() {
   };
 
   const handleDelete = (id) => {
-    deleteUser(id).then(() => {
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setUserToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    deleteUser(userToDelete).then(() => {
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userToDelete));
+      setDeleteDialogOpen(false);
+      setUserToDelete(null);
     });
   };
 
@@ -217,8 +230,26 @@ function Users() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={() => setDeleteDialogOpen(false)}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this user?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="secondary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
 
-export default Users;   
+export default Users;
