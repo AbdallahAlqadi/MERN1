@@ -212,7 +212,7 @@ function DashboardLayoutBasic(props) {
   return (
     <AppProvider navigation={dashNavigate} router={router} theme={demoTheme} window={demoWindow}>
       <DashboardLayout>
-        <Typography>{user.roul || 'Unknown Role'}</Typography>
+        <Typography>{user.roul}</Typography>
         <PageContainer>{currentComponent}</PageContainer>
       </DashboardLayout>
     </AppProvider>
