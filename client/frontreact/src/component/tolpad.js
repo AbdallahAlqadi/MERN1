@@ -37,7 +37,7 @@ const demoTheme = createTheme({
 
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
-
+//addcode
   if (pathname === '/LogOut') {
     console.log('logging out');
     sessionStorage.removeItem('jwt');
@@ -79,7 +79,7 @@ function DashboardLayoutBasic(props) {
   const { window } = props;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
-
+//addcode
   const allPages = [
     { path: '/dashboard', component: <Newdash /> },
     { path: '/orders', component: <Orders /> },
@@ -121,7 +121,7 @@ function DashboardLayoutBasic(props) {
 
   useEffect(() => {
     const token = sessionStorage.getItem('jwt');
-
+//addnewcode
     const invaliedToken = async () => {
       try {
         const res = await axios.get('http://127.0.0.1:5002/api/home', {
