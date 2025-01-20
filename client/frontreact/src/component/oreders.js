@@ -4,9 +4,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 function Orders() {
   // Example data
   const orders = [
-    { id: 1, username: 'JohnDoe', items: 'Watch, Belt', price: 120 },
-    { id: 2, username: 'JaneSmith', items: 'Bag, Shoes', price: 200 },
-    { id: 3, username: 'AliceJones', items: 'Ring, Necklace', price: 300 },
+    
   ];
 
   // Calculate total price
