@@ -6,6 +6,7 @@ import DashboardLayoutBasic  from './component/tolpad';
 import Newdash from './component/newdah';
 import Orders from './component/oreders';
 import Users from './component/user';
+import Cartitem from '../component/Cartitem';
 function App() {
   return (
     <Router>

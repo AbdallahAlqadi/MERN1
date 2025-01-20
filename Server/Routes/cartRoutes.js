@@ -1,6 +1,8 @@
-const express= require('express');
+const express=require('express')
+const cors=require('cors');
 const routes=express.Router();
-const {veryfyjwt}= require('../models/users');
+require('dotenv').config();
+const {veryfyjwt}= require('../controllers/userControllers');
 const {addCart,getUserCart}= require('../controllers/cartController');
 
 

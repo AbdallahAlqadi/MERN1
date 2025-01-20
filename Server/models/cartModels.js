@@ -13,5 +13,6 @@ products:[{
 
 });
 
-const Cart=mongoose.model('cart',cartSchema);
+// الاسم اللي سوف يتم استخدامه في قاعدة البيانات
+const Cart=mongoose.model('carts',cartSchema);
 module.exports=Cart;
