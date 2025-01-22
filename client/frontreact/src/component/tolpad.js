@@ -207,7 +207,12 @@ function DashboardLayoutBasic(props) {
     setCurrentComponent(allPages.find((page) => page.path === router.pathname)?.component);
   }, [router]);
 
+
   const demoWindow = window !== undefined ? window() : undefined;
+
+  const deletetoken= async () => {
+    
+      }
 
   return (
     <AppProvider navigation={dashNavigate} router={router} theme={demoTheme} window={demoWindow}>
