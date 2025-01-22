@@ -19,6 +19,8 @@ import Orders from './oreders';
 import axios from 'axios';
 import Users from './user';
 
+
+//موجود
 const demoTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'data-toolpad-color-scheme',
@@ -38,11 +40,6 @@ const demoTheme = createTheme({
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
 //addcode
-  if (pathname === '/LogOut') {
-    console.log('logging out');
-    sessionStorage.removeItem('jwt');
-    window.location.href = '/';
-  }
 
   const router = React.useMemo(() => {
     return {
